@@ -1,12 +1,78 @@
 # 🏦 Banco Demo - Backend API REST
 
-Backend de aplicación bancaria desarrollado con **Spring Boot 3.2** y **Java 17** para práctica de automatización de pruebas.
+API REST para sistema bancario desarrollada con **Spring Boot 3.4.1** que proporciona funcionalidades de autenticación, consulta de saldos y gestión de préstamos.
 
-## 🚀 Inicio Rápido
+## 📋 Tabla de Contenidos
 
-### Prerrequisitos
-- Java 17 o superior
-- Gradle 8+ (opcional, usa el wrapper incluido)
+- [Características](#características)
+- [Arquitectura](#arquitectura)
+- [Tecnologías](#tecnologías)
+- [Requisitos Previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Configuración](#configuración)
+- [Endpoints](#endpoints)
+- [Diagramas](#diagramas)
+- [Base de Datos](#base-de-datos)
+- [Testing](#testing)
+
+## ✨ Características
+
+- 🔐 **Autenticación JWT** - Sistema de login con tokens
+- 💰 **Consulta de Saldos** - Información de cuentas bancarias
+- 📊 **Cálculo de Préstamos** - Simulador de cuotas con diferentes tasas
+- 📝 **Gestión de Solicitudes** - Creación y seguimiento de préstamos
+- 📚 **Documentación Swagger** - API docs interactiva
+- 🗄️ **Base de Datos H2** - BD en memoria para desarrollo
+- ✅ **Validaciones** - Validación de datos con Bean Validation
+- 🌐 **CORS Configurado** - Habilitado para frontend en puerto 5500
+
+## 🏗️ Arquitectura
+
+El proyecto sigue una arquitectura en capas (Layered Architecture):
+
+```
+┌─────────────────────────────────────────┐
+│          CAPA DE PRESENTACIÓN           │
+│    Controllers (REST Endpoints)         │
+│  AuthController, CuentaController, etc  │
+└─────────────────┬───────────────────────┘
+                  │
+┌─────────────────▼───────────────────────┐
+│          CAPA DE NEGOCIO                │
+│        Services (Lógica)                │
+│  AuthService, PrestamoService, etc      │
+└─────────────────┬───────────────────────┘
+                  │
+┌─────────────────▼───────────────────────┐
+│       CAPA DE PERSISTENCIA              │
+│    Repositories (Spring Data JPA)       │
+│  UsuarioRepository, CuentaRepository    │
+└─────────────────┬───────────────────────┘
+                  │
+┌─────────────────▼───────────────────────┐
+│         BASE DE DATOS H2                │
+│    (En memoria - Desarrollo)            │
+└─────────────────────────────────────────┘
+```
+
+## 🛠️ Tecnologías
+
+| Tecnología | Versión | Propósito |
+|------------|---------|-----------|
+| Java | 17 | Lenguaje de programación |
+| Spring Boot | 3.4.1 | Framework principal |
+| Spring Data JPA | 3.4.1 | Persistencia de datos |
+| Spring Validation | 3.4.1 | Validación de datos |
+| H2 Database | Runtime | Base de datos en memoria |
+| Lombok | Latest | Reducción de boilerplate |
+| Springdoc OpenAPI | 2.7.0 | Documentación Swagger |
+| Gradle | 8.5 | Gestión de dependencias |
+
+## 📦 Requisitos Previos
+
+- ☕ **JDK 17 o superior**
+- 🔧 **Gradle 8.5+** (o usar el wrapper incluido)
+- 🌐 **Puerto 8080** disponible
 
 ### Levantar la aplicación
 
