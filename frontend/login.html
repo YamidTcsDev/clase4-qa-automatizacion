@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Banco Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <h1>🏦 Banco Demo</h1>
+                <p>Sistema de Banca en Línea</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="login-email">Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        id="login-email" 
+                        data-testid="login-email"
+                        placeholder="ejemplo@correo.com"
+                        required
+                    >
+                    <span class="error-message">Por favor ingrese un correo válido</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="login-password" 
+                        data-testid="login-password"
+                        placeholder="••••••••"
+                        required
+                    >
+                    <span class="error-message">La contraseña es requerida</span>
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="btn btn-primary" 
+                    data-testid="login-submit"
+                    id="loginButton"
+                >
+                    Iniciar Sesión
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script>
+        // Redirigir si ya está autenticado
+        if (isAuthenticated()) {
+            window.location.href = 'dashboard.html';
+        }
+
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('login-email');
+        const passwordInput = document.getElementById('login-password');
+        const loginButton = document.getElementById('loginButton');
+
+        // Limpiar errores al escribir
+        emailInput.addEventListener('input', () => clearFieldError('login-email'));
+        passwordInput.addEventListener('input', () => clearFieldError('login-password'));
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearAllErrors();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            // Validaciones
+            let hasErrors = false;
+            
+            if (!validateRequired(email)) {
+                showFieldError('login-email', 'El correo es requerido');
+                hasErrors = true;
+            } else if (!isValidEmail(email)) {
+                showFieldError('login-email', 'Por favor ingrese un correo válido');
+                hasErrors = true;
+            }
+            
+            if (!validateRequired(password)) {
+                showFieldError('login-password', 'La contraseña es requerida');
+                hasErrors = true;
+            }
+            
+            if (hasErrors) return;
+            
+            // Deshabilitar botón
+            loginButton.disabled = true;
+            loginButton.innerHTML = '<span class="spinner"></span> Iniciando sesión...';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.token) {
+                    // Guardar token y datos de usuario
+                    saveAuthData(data.token, {
+                        id: data.userId,
+                        nombre: data.nombre,
+                        email: email
+                    });
+                    
+                    // Mostrar mensaje de éxito
+                    showToast('¡Bienvenido! Iniciando sesión...', 'success');
+                    
+                    // Redirigir al dashboard
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                } else {
+                    // Error de autenticación
+                    showToast(data.message || 'Credenciales inválidas', 'error');
+                    showFieldError('login-email', 'Correo o contraseña incorrectos');
+                    showFieldError('login-password', 'Correo o contraseña incorrectos');
+                }
+            } catch (error) {
+                console.error('Error de login:', error);
+                showToast('Error al conectar con el servidor', 'error');
+            } finally {
+                loginButton.disabled = false;
+                loginButton.innerHTML = 'Iniciar Sesión';
+            }
+        });
+    </script>
+</body>
+</html>
