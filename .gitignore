@@ -1,0 +1,234 @@
+# ============================================
+# .gitignore - Banco Demo App
+# ============================================
+
+# ============================================
+# BACKEND (Java/Gradle/Spring Boot)
+# ============================================
+
+# Gradle
+backend/.gradle/
+backend/build/
+backend/gradle-app.setting
+backend/*.gradle.kts.lock
+
+# Gradle wrapper (mantener jar para reproducibilidad)
+# backend/gradle/wrapper/gradle-wrapper.jar
+
+# Archivos generados por Gradle
+backend/bin/
+backend/out/
+
+# ============================================
+# JAVA
+# ============================================
+
+# Compiled class files
+backend/**/*.class
+
+# Log files
+backend/**/*.log
+
+# Package Files
+backend/**/*.jar
+backend/**/*.war
+backend/**/*.nar
+backend/**/*.ear
+backend/**/*.zip
+backend/**/*.tar.gz
+backend/**/*.rar
+
+# Virtual machine crash logs
+backend/**/hs_err_pid*
+backend/**/replay_pid*
+
+# ============================================
+# SPRING BOOT
+# ============================================
+
+# Spring Boot DevTools
+backend/**/.spring-boot-devtools.properties
+
+# ============================================
+# IDE - IntelliJ IDEA
+# ============================================
+
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# ============================================
+# IDE - Eclipse
+# ============================================
+
+.classpath
+.project
+.settings/
+backend/.apt_generated/
+backend/.apt_generated_tests/
+backend/.factorypath
+backend/.springBeans
+backend/.sts4-cache/
+
+# ============================================
+# IDE - VS Code
+# ============================================
+
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# ============================================
+# IDE - NetBeans
+# ============================================
+
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# ============================================
+# FRONTEND
+# ============================================
+
+# Node modules (si se agrega Node.js en el futuro)
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/package-lock.json
+frontend/yarn.lock
+
+# Archivos de compilación frontend
+frontend/dist/
+frontend/build/
+
+# ============================================
+# SISTEMA OPERATIVO
+# ============================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+.directory
+
+# ============================================
+# ARCHIVOS TEMPORALES Y DE BACKUP
+# ============================================
+
+*.swp
+*.swo
+*.bak
+*.tmp
+*.temp
+*~
+.#*
+\#*\#
+
+# ============================================
+# LOGS Y BASES DE DATOS
+# ============================================
+
+logs/
+*.log
+log/
+
+# Base de datos H2 (si se persiste en archivo)
+*.db
+*.mv.db
+*.trace.db
+
+# ============================================
+# TESTING
+# ============================================
+
+# Coverage reports
+backend/coverage/
+backend/.nyc_output/
+backend/htmlcov/
+backend/.coverage
+backend/.pytest_cache/
+
+# Selenium/Cypress
+cypress/videos/
+cypress/screenshots/
+.selenium/
+
+# ============================================
+# DOCUMENTACIÓN
+# ============================================
+
+# No ignorar README.md ni documentación importante
+!README.md
+!backend/README.md
+!frontend/README.md
+
+# ============================================
+# VARIABLES DE ENTORNO Y CONFIGURACIÓN
+# ============================================
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.env
+
+# Configuraciones locales sensibles
+application-local.properties
+application-local.yml
+
+# ============================================
+# MAVEN (por si se cambia a Maven)
+# ============================================
+
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ============================================
+# OTROS
+# ============================================
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Excepciones para JARs necesarios
+!backend/gradle/wrapper/gradle-wrapper.jar
+!backend/lib/**/*.jar
